@@ -1089,7 +1089,7 @@ refactor_rootfs() {
 }
 
 clean_tmp() {
-    process_msg "(7/7) Cleaning up temporary files."
+    process_msg "(7/7) Cleaning temporary files."
     cd ${current_path}
 
     umount -f ${tmp_fnnas} 2>/dev/null
@@ -1132,10 +1132,10 @@ loop_make() {
                     echo -ne "(${j}.${i}) Building FnNAS [\033[92m ${board} - ${kernel} \033[0m]. "
                     now_remaining_space="$(df -Tk ${make_path} | tail -n1 | awk '{print $5}' | echo $(($(xargs) / 1024 / 1024)))"
                     if [[ "${now_remaining_space}" -le "10" ]]; then
-                        echo -e "${WARNING} Remaining space is less than 10G, skipping this build."
+                        echo -e "${WARNING} Remaining space is less than 10 GiB, skipping this build."
                         break
                     else
-                        echo "Remaining space: ${now_remaining_space}G."
+                        echo "Remaining space: ${now_remaining_space} GiB."
                     fi
 
                     # Execute the following functions in sequence
@@ -1147,7 +1147,7 @@ loop_make() {
                     refactor_rootfs
                     clean_tmp
 
-                    echo -e "(${j}.${i}) FnNAS image built successfully. \n"
+                    echo -e "(${j}.${i}) FnNAS built successfully. \n"
                     ((i++))
                 }
             done
